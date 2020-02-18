@@ -117,15 +117,15 @@ const publicPath = path.resolve(__dirname, '../public');
 router.use('/public', express.static(publicPath));
 
 router.get('/', function (req, res) {
-  res.sendFile(__dirname + '/index.html');
+  res.sendFile(__dirname + '/views/index.html');
 });
 
 router.get('/player', function (req, res) {
-  res.sendFile(__dirname + '/player.html');
+  res.sendFile(__dirname + '/views/player.html');
 });
 
 router.get('/home', function (req, res) {
-  res.sendFile(__dirname + '/home.html');
+  res.sendFile(__dirname + '/views/home.html');
 });
 
 
