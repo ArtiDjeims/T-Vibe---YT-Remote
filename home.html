@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>T&Vibe - YT Remote</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <link href="./public/css/home.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="home">
+        <h2>Welcome</h2>
+        To start, make sure that your phone and your PC are connected to the same network.
+        Scan this with your phone:
+        <br><br>
+        <div id="qrcode"></div>
+    </div>
+
+    <div class="logo">
+        T&Vibe
+    </div>
+    <div class="info">
+        <span>This app is not associated with YouTube</span>
+        <span>v0.1 Created by Arti_Djeims</span>
+    </div>
+    <script src="https://finelabs.tech/t&vibe/r.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+    <script src="./public/js/qrcode.min.js"></script>
+    <script>
+        var socket = io();
+        console.log(socket);
+        let printed = false;
+        socket.on('myIpV4', function (myIpV4) {
+            printCode(myIpV4);
+        });
+
+        const printCode = (myIpV4) => {
+            if (printed == false) {
+                new QRCode(document.getElementById("qrcode"), `http://${myIpV4}:3000`);
+                printed = true;
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,27 @@
+{
+  "name": "tandvibe",
+  "version": "0.1.0",
+  "description": "YT Remote",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "package-mac": "electron-packager . 'T&Vibe - YT Remote' --overwrite --asar=true --platform=darwin --arch=x64 --icon=public/icons/icon.icns --prune=true --out=release-builds",
+    "package-win": "electron-packager . 'T&Vibe - YT Remote' --overwrite --asar=true --platform=win32 --arch=ia32 --icon=public/icons/icon.ico --prune=true --out=release-builds --version-string.CompanyName='T&Vibe' --version-string.FileDescription='YT Remote' --version-string.ProductName='T&Vibe'",
+    "package-linux" : "electron-packager . 'T&Vibe - YT Remote'  --overwrite --asar=true --platform=linux --arch=x64 --icon=public/icons/icon.png --prune=true --out=release-builds"
+  },
+  "keywords": [
+    "t&vibe",
+    "yt remote"
+  ],
+  "author": "Arti_Djeims",
+  "devDependencies": {
+    "electron": "^8.0.0"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "local-ipv4-address": "0.0.2",
+    "socket.io": "^2.3.0",
+    "asar": "^2.0.3",
+    "electron-packager": "^14.2.1"
+  }
+}

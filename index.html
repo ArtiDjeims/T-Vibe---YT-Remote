@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Remote</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="public/css/remote.css" />
+</head>
+
+<body>
+  <div id="search" class="search">
+    <input type="text" id="userSearch" placeholder="Enter your request...">
+    <button onclick="searchVideo()">Search</button>
+  </div>
+  <div id="searchResults" class="search-results"></div>
+  <div id="player">
+    <div id="playerSwitch">
+      <span onclick="pauseVideo()">⏸️</span>
+    </div>
+    <div id="playerSound">
+      <span onclick="muteVideo()">🔈</span>
+    </div>
+    <span onclick="jumpBackwardVideo()">⏪</span>
+    <span onclick="jumpForwardVideo()">⏩</span>
+    <div id="playerNext">
+      <span onclick="nextVideo()">🔀</span>
+    </div>
+  </div>
+
+
+
+  <!-- <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
+  <script>
+    // var socket = io.connect("http://localhost:3000");
+    var socket = io();
+    console.log(socket);
+
+    let search = document.getElementById("search");
+    let searchResultsBlock = document.getElementById("searchResults");
+    let playerBlock = document.getElementById("player");
+    let playerSwitchBlock = document.getElementById("playerSwitch");
+    let playerSoundBlock = document.getElementById("playerSound");
+
+    let searchList;
+
+    socket.on('newTheme', function (theme) {
+      console.log(theme);
+    });
+
+    socket.on('searchResults', function (list) {
+      console.log(list);
+      searchList = list;
+      let html = "";
+      for (let i = 0; i < list.length; i++) {
+        html = html + `
+        <div class="s-result" onclick="openVideo('${list[i]["link"]}')">${list[i]["title"]}</div>
+        `;
+      }
+      searchResultsBlock.innerHTML = html;
+    });
+
+    const searchVideo = () => {
+      console.log("sending search");
+      let q = document.getElementById("userSearch").value;
+      searchResultsBlock.innerHTML = `<div class="s-result">Loading...</div>`;
+      socket.emit('search', q);
+    }
+
+    const openVideo = (url) => {
+      socket.emit('openVideo', url);
+    }
+
+    const pauseVideo = () => {
+      socket.emit('controlVideo', 'pause');
+      playerSwitch.innerHTML = `<span onclick="playVideo()">▶️</span>`;
+    }
+
+    const playVideo = () => {
+      socket.emit('controlVideo', 'play');
+      playerSwitch.innerHTML = `<span onclick="pauseVideo()">⏸️</span>`;
+    }
+
+    const muteVideo = () => {
+      socket.emit('controlVideo', 'mute');
+      playerSoundBlock.innerHTML = `<span onclick="unmuteVideo()">🔇</span>`;
+    }
+
+    const unmuteVideo = () => {
+      socket.emit('controlVideo', 'unmute');
+      playerSoundBlock.innerHTML = `<span onclick="muteVideo()">🔈</span>`;
+    }
+
+    const jumpBackwardVideo = () => {
+      socket.emit('controlVideo', 'jump-backwards');
+    }
+
+    const jumpForwardVideo = () => {
+      socket.emit('controlVideo', 'jump-forward');
+    }
+
+    const nextVideo = () => {
+      let video = Math.floor(Math.random() * searchList.length);
+      openVideo(searchList[video]["link"]);
+    }
+  </script>
+</body>
+
+</html>
