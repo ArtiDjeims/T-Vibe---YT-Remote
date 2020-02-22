@@ -1,6 +1,6 @@
 # T&Vibe - YT Remote 
 
-T&Vibe is an App That Turns Your Phone Into YouTube Remote.
+T&Vibe is an App allows you to control your PC with your phone, as it was a youtube remote.
 
 This repo contains:
   - T&Vibe Source Code
