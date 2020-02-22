@@ -24,8 +24,9 @@ Build with:
 
 ### Download
 
-[Download for Windows](https://)
-[Download for MacOS](https://)
+[Download for MacOS](https://github.com/ArtiDjeims/TandVibe-YT-Remote/raw/master/packaged/T%26Vibe%20-%20YT%20Remote%20(MacOs).zip)
+
+[Download for Windows](https://https://github.com/ArtiDjeims/TandVibe-YT-Remote/raw/master/packaged/T%26Vibe%20-%20YT%20Remote%20(Win).zip)
 
 
 License
